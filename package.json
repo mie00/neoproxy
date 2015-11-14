@@ -1,0 +1,29 @@
+{
+  "name": "neoproxy",
+  "version": "0.1.0",
+  "description": "NeoProxy is a node.js proxy server based on express.js and request modules, that can be customized with plugins.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "request": "^2.65.0",
+    "raw-body": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mie00/neoproxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "plugins"
+  ],
+  "author": "Mohamed Elawadi (mielawadi@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mie00/neoproxy/issues"
+  },
+  "homepage": "https://github.com/mie00/neoproxy#readme"
+}
