@@ -56,10 +56,10 @@ It is a response object of the module [require](https://github.com/request/reque
 
 The proxy server instance has three methods
 1. use: this is where you can attach plugins to the proxy using either
-  * `app.use({condition:function(){/* condition */},middleware:function(){/* middleware */}})`
-  * `app.use({middleware:function(){/* middleware */}})`
-  * `app.use(function(){/* condition */},function(){/* middleware */})`
-  * `app.use(function(){/* middleware */})`
+  * `proxy.use({condition:function(){/* condition */},middleware:function(){/* middleware */}})`
+  * `proxy.use({middleware:function(){/* middleware */}})`
+  * `proxy.use(function(){/* condition */},function(){/* middleware */})`
+  * `proxy.use(function(){/* middleware */})`
 2. app: this is the express instance that is used internally within the app, feel free to add any express middle-wares you like.
 3. listen: this is the function called to start the proxy server it takes two arguments port, callback.
 
@@ -73,9 +73,9 @@ Please note that the first example is the only complete example, others may only
   var Proxy = require('neoproxy');
   var proxy = Proxy();
   
-  //app.use(plugin1);
-  //app.use(condition2,middleware2);
-  //app.use(middleware3);
+  //proxy.use(plugin1);
+  //proxy.use(condition2,middleware2);
+  //proxy.use(middleware3);
   
   var server = proxy.listen(8000, function () {
   	var host = server.address().address;
@@ -88,7 +88,7 @@ Please note that the first example is the only complete example, others may only
 2. Log urls to the standard output
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return !req.is_resolved;
   },function(req,res,push){
   	console.log(req.url);
@@ -99,7 +99,7 @@ Please note that the first example is the only complete example, others may only
 3. Abandoning connections from a specific ip
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return !req.is_resolved && req.ip = '10.0.0.5';
   },function(req,res,push){
   	req.abandon();
@@ -109,7 +109,7 @@ Please note that the first example is the only complete example, others may only
 4. Just passes the data after it is resolved
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	return function(x){
@@ -124,7 +124,7 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   var traffic = {};
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	req.mySize = req.mySize || 0;
@@ -142,7 +142,7 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   var traffic = {};
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	traffic[req.ip] = (traffic[req.ip]||0);
@@ -159,7 +159,7 @@ Please note that the first example is the only complete example, others may only
   var defaults = Proxy.defaults;
   // this builtin plugin will concat the whole response in a single chunk
   proxy.use(defaults.concat)
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	var enconding = 'utf8'
@@ -182,7 +182,7 @@ Please note that the first example is the only complete example, others may only
   ```js
   var defaults = Proxy.defaults;
   proxy.use(defaults.concat)
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	var enconding = 'utf8'
@@ -207,7 +207,7 @@ Please note that the first example is the only complete example, others may only
 8. Block requests to a particular site
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return !req.is_resolved && req.hostname === 'google.com';
   },function(req,res,push){
   	req.abandon();
@@ -217,7 +217,7 @@ Please note that the first example is the only complete example, others may only
 9. Remove or alter a specific header from request or response
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return !req.is_resolved;
   },function(req,res,push){
   	delete req.headers.referer;
@@ -225,7 +225,7 @@ Please note that the first example is the only complete example, others may only
   ```
   
   ```js
-  app.use(function(req,res){
+  proxy.use(function(req,res){
   	return req.is_resolved;
   },function(req,res,push){
   	res.response.headers['Cache-Control'] = 'max-age=0';
