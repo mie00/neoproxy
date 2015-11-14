@@ -8,7 +8,7 @@ At your project's home directory:
 
 `npm install --save neoproxy`
 
-## Plugins (examples [below](##Examples))
+## Plugins (examples [below](#examples))
 
 Plugins are used to customize neoproxy behavior. It is called on every request in series. It is a json object consisting of two functions
 1. condition: this is an optional function that returns true or false specifying whether this plugin will be used for the request.
