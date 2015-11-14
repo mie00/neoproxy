@@ -235,8 +235,8 @@ Please note that the first example is the only complete example, others may only
 10. Limit the data passed every second to 10kB to mock slow internet connections. (Please note that tis snippet can be used for test purposes only, feel free to add more accurate middleware)
   
   ```js
-  var INTERVAL = 1000, // 1s
-  var LIMIT = 1024*10, // 10kB
+  var INTERVAL = 1000; // 1s
+  var LIMIT = 1024*10; // 10kB
   proxy.use({
   	// to store timestamp, data length for calculations.
   	obj: {},
@@ -269,7 +269,7 @@ Please note that the first example is the only complete example, others may only
   				push(chunk);
   				obj[date] = chunk.length;
   			}
-  			setTimeout(process,0);
+  			setTimeout(self.process.bind(self),0);
   		}
   	},
   	condition: function(req,res){
