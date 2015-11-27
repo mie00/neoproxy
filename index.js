@@ -65,7 +65,7 @@ var Proxy = module.exports = function (){
 			var mw = self.middlewares[i](req,function(j){
 				return function(data){
 					temp_mws[j+1].push(data);
-					move();
+					move(j+1);
 				}
 			}(j))
 			if(mw){
@@ -99,7 +99,7 @@ var Proxy = module.exports = function (){
 		}).concat([]);
 		function push(data){
 			temp_mws[0].push(data);
-			move();
+			move(0);
 		}
 		req.proxy_res.on('data',function(data){
 			push(data);
@@ -107,22 +107,12 @@ var Proxy = module.exports = function (){
 		req.proxy_res.on('end',function(){
 			push(null);
 		});
-		var alive = true;
-		function move(){
-			var last = temp_mws.length-1;
-			var current = 0;
-			while(!req._abandoned && alive){
+		function move(current){
+			if(!req._abandoned){
 				if(req._retry){
-					alive = false;
 					return self._fetch(req,res,function(){
 						self._process(req,res,next);
 					})
-				}
-				if (current>last){
-					break;
-				}
-				if(temp_mws[current].length === 0){
-					current++;
 				}
 				else{
 					var elem = temp_mws[current].shift();
