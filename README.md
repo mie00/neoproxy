@@ -293,9 +293,9 @@ If you like contributing to this project, I am waiting for the pull request. :)
 
   1. Error handling.
   2. Testing.
-  3. Hanling file uploads.
+  3. Handling file uploads.
   4. Accepting optional parameters.
   5. Seperating public and private methods.
 
 ## License
-[MIT](./LICENSE) @ 2015 [Mohamed Elawadi](http://www.github.com/mie00)
+[MIT](./LICENSE) © 2015 [Mohamed Elawadi](http://www.github.com/mie00)
