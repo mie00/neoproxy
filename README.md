@@ -92,7 +92,7 @@ Please note that the first example is the only complete example, others may only
   	return !req.is_resolved;
   },function(req,res,push){
   	console.log(req.url);
-  	//please note that middle wares that work with non resolved requests doesn't have a return value.
+  	//please note that middlewares that work with non resolved requests don't have a return value.
   });
   ```
   
