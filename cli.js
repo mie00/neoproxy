@@ -17,7 +17,7 @@ var parse_limit = function(str){
 	return limit;
 };
 program
-	.version('0.2.01')
+	.version('0.2.02')
 	.option('-l, --logging', 'enable logging')
 	.option('-p, --port <port>','the port the proxy server listens to',integer,8087)
 	.option('-L, --limit <bandwidth>','limit connection speed',parse_limit)
