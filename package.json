@@ -1,6 +1,6 @@
 {
   "name": "neoproxy",
-  "version": "0.2.0",
+  "version": "0.2.01",
   "description": "NeoProxy is a node.js proxy server based on express.js and request modules, that can be customized with plugins.",
   "main": "index.js",
   "bin": {
