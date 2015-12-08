@@ -126,7 +126,7 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return !req.is_resolved && req.ip = '10.0.0.5';
+  	return !req.is_resolved && req.ip == '10.0.0.5';
   },function(req,res,push){
   	req.abandon();
   });
