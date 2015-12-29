@@ -45,18 +45,29 @@ var Proxy = module.exports = function (){
 		}
 		var proxy_res = (request(params));
 		proxy_res.on('response',function(obj){
-			callback(proxy_res);
+			callback(null, proxy_res);
+		});
+		proxy_res.on('error',function(err){
+			callback(err);
 		});
 	};
 	self._fetch = function(req,res,next){
-		self.__fetch(req,function(x){
-			req.proxy_res = x;
+		self.__fetch(req,function(err,x){
+			if(err){
+				req.error = err;
+			}
+			else{
+				req.proxy_res = x;
+			}
 			req.is_resolved = true;
 			req._retry = false;
 			next();
 		})
 	};
 	self._process = function (req,res,next) {
+		if(req.error){
+			return res.status(0).end()
+		}
 		req.is_resolved = req.is_resolved || false;
 		var headerSent = false;
 		var j = 0;
