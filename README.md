@@ -82,9 +82,9 @@ Please note that the first example is the only complete example, others may only
   //proxy.use(middleware3);
   
   var server = proxy.listen(8000, function () {
-  	var host = server.address().address;
-  	var port = server.address().port;
-  	console.log('proxy server listening at http://%s:%s', host, port);
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('proxy server listening at http://%s:%s', host, port);
   });
   
   ```
@@ -93,10 +93,10 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return !req.is_resolved;
+    return !req.is_resolved;
   },function(req,res,push){
-  	console.log(req.url);
-  	//please note that middlewares that work with non resolved requests don't have a return value.
+    console.log(req.url);
+    //please note that middlewares that work with non resolved requests don't have a return value.
   });
   ```
   
@@ -104,9 +104,9 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return !req.is_resolved && req.ip == '10.0.0.5';
+    return !req.is_resolved && req.ip == '10.0.0.5';
   },function(req,res,push){
-  	req.abandon();
+    req.abandon();
   });
   ```
   
@@ -114,13 +114,13 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	return function(x){
-  		push(x);
-  	}
-  	// or you could do
-  	// return push;
+    return function(x){
+      push(x);
+    }
+    // or you could do
+    // return push;
   });
   ```
   
@@ -129,16 +129,16 @@ Please note that the first example is the only complete example, others may only
   ```js
   var traffic = {};
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	req.mySize = req.mySize || 0;
-  	traffic[req.ip] = (traffic[req.ip]||0)-req.mySize;
-  	req.mySize = 0;
-  	return function(x){
-  		traffic[req.ip]+=(x||'').length;
-  		req.mySize+=(x||'').length;
-  		push(x)
-  	}
+    req.mySize = req.mySize || 0;
+    traffic[req.ip] = (traffic[req.ip]||0)-req.mySize;
+    req.mySize = 0;
+    return function(x){
+      traffic[req.ip]+=(x||'').length;
+      req.mySize+=(x||'').length;
+      push(x)
+    }
   });
   ```
   
@@ -147,13 +147,13 @@ Please note that the first example is the only complete example, others may only
   ```js
   var traffic = {};
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	traffic[req.ip] = (traffic[req.ip]||0);
-  	return function(x){
-  		traffic[req.ip]+=(x||'').length;
-  		push(x)
-  	}
+    traffic[req.ip] = (traffic[req.ip]||0);
+    return function(x){
+      traffic[req.ip]+=(x||'').length;
+      push(x)
+    }
   });
   ```
   
@@ -164,20 +164,20 @@ Please note that the first example is the only complete example, others may only
   // this builtin plugin will concat the whole response in a single chunk
   proxy.use(defaults.concat)
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	var enconding = 'utf8'
-  	return function(x){
-  		if(x){
-  			if(x instanceof Buffer){
-  				x = new Buffer(x.toString(encoding).replace(/foo/g,'bar'),encoding);
-  			}
-  			else{
-  				x = x.replace(/foo/g,'bar');
-  			}
-  		}
-  		push(x)
-  	}
+    var enconding = 'utf8'
+    return function(x){
+      if(x){
+        if(x instanceof Buffer){
+          x = new Buffer(x.toString(encoding).replace(/foo/g,'bar'),encoding);
+        }
+        else{
+          x = x.replace(/foo/g,'bar');
+        }
+      }
+      push(x)
+    }
   });
   ```
   
@@ -187,24 +187,24 @@ Please note that the first example is the only complete example, others may only
   var defaults = Proxy.defaults;
   proxy.use(defaults.concat)
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	var enconding = 'utf8'
-  	return function(x){
-  		var str;
-  		if(x){
-  			if(x instanceof Buffer){
-  				str = x.toString(encoding)
-  			}
-  			else{
-  				str = x
-  			}
-  			if(str.match(/foo/g)){
-  				return req.abandon();
-  			}
-  		}
-  		push(x);
-  	}
+    var enconding = 'utf8'
+    return function(x){
+      var str;
+      if(x){
+        if(x instanceof Buffer){
+          str = x.toString(encoding)
+        }
+        else{
+          str = x
+        }
+        if(str.match(/foo/g)){
+          return req.abandon();
+        }
+      }
+      push(x);
+    }
   });
   ```
   
@@ -212,9 +212,9 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return !req.is_resolved && req.hostname === 'google.com';
+    return !req.is_resolved && req.hostname === 'google.com';
   },function(req,res,push){
-  	req.abandon();
+    req.abandon();
   });
   ```
   
@@ -222,17 +222,17 @@ Please note that the first example is the only complete example, others may only
   
   ```js
   proxy.use(function(req,res){
-  	return !req.is_resolved;
+    return !req.is_resolved;
   },function(req,res,push){
-  	delete req.headers.referer;
+    delete req.headers.referer;
   });
   ```
   
   ```js
   proxy.use(function(req,res){
-  	return req.is_resolved;
+    return req.is_resolved;
   },function(req,res,push){
-  	res.response.headers['Cache-Control'] = 'max-age=0';
+    res.response.headers['Cache-Control'] = 'max-age=0';
   });
   ```
   
@@ -242,50 +242,50 @@ Please note that the first example is the only complete example, others may only
   var INTERVAL = 1000; // 1s
   var LIMIT = 1024*10; // 10kB
   proxy.use({
-  	// to store timestamp, data length for calculations.
-  	obj: {},
-  	queue: [],
-  	process: function(){
-  		var self = this;
-  		var queue = self.queue;
-  		var obj = self.obj;
-  		while(Array.isArray(queue[0]) && queue[0][0] === null){
-  			var packet = queue.shift();;
-  			var chunk = packet[0];
-  			var push = packet[1];
-  			push(chunk);
-  		}
-  		if(queue.length){
-  			var date = Date.now();
-  			var count = 0;
-  			for (var i in obj){
-  				if(date-i>INTERVAL){
-  					delete obj[i];
-  				}
-  				else{
-  					count += obj[i];
-  				}
-  			}
-  			if(count<LIMIT){
-  				var packet = queue.shift();;
-  				var chunk = packet[0];
-  				var push = packet[1];
-  				push(chunk);
-  				obj[date] = chunk.length;
-  			}
-  			setTimeout(self.process.bind(self),0);
-  		}
-  	},
-  	condition: function(req,res){
-  		return req.is_resolved;
-  	},
-  	middleware: function(req,res,push){
-  		var self = this;
-  		return function(x){
-  			self.queue.push([x,push]);
-  			self.process();
-  		}
-  	}
+    // to store timestamp, data length for calculations.
+    obj: {},
+    queue: [],
+    process: function(){
+      var self = this;
+      var queue = self.queue;
+      var obj = self.obj;
+      while(Array.isArray(queue[0]) && queue[0][0] === null){
+        var packet = queue.shift();;
+        var chunk = packet[0];
+        var push = packet[1];
+        push(chunk);
+      }
+      if(queue.length){
+        var date = Date.now();
+        var count = 0;
+        for (var i in obj){
+          if(date-i>INTERVAL){
+            delete obj[i];
+          }
+          else{
+            count += obj[i];
+          }
+        }
+        if(count<LIMIT){
+          var packet = queue.shift();;
+          var chunk = packet[0];
+          var push = packet[1];
+          push(chunk);
+          obj[date] = chunk.length;
+        }
+        setTimeout(self.process.bind(self),0);
+      }
+    },
+    condition: function(req,res){
+      return req.is_resolved;
+    },
+    middleware: function(req,res,push){
+      var self = this;
+      return function(x){
+        self.queue.push([x,push]);
+        self.process();
+      }
+    }
   })
   ```
 
