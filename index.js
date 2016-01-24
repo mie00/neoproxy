@@ -134,6 +134,7 @@ var Proxy = module.exports = function (){
 	};
 	self.app = express();
 	self.listen = function(port, callback){
+		var arguments2 = arguments;
 		self.app.use(function(req,res,next){
 			if(!req._body){
 
@@ -158,7 +159,7 @@ var Proxy = module.exports = function (){
 		})
 		self.app.use(self._process);
 
-		return self.app.listen.apply(self.app, arguments);
+		return self.app.listen.apply(self.app, arguments2);
 	};
 }
 Proxy.defaults = require('./defaults')
