@@ -158,8 +158,7 @@ var Proxy = module.exports = function (){
 		})
 		self.app.use(self._process);
 
-
-		return self.app.listen(port,callback)
+		return self.app.listen.apply(self.app, arguments);
 	};
 }
 Proxy.defaults = require('./defaults')
