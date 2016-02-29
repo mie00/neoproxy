@@ -1,5 +1,7 @@
 # NeoProxy
 
+[![npm](https://img.shields.io/npm/dt/neoproxy.svg)](https://www.npmjs.com/package/neoproxy) [![npm](https://img.shields.io/npm/dm/neoproxy.svg)](https://www.npmjs.com/package/neoproxy)
+
 NeoProxy is a node.js proxy server based on express.js and request modules, that can be customized with plugins.
 
 For the cli with basic proxy operations you can use [NeoProxy-cli](https://github.com/mie00/neoproxy-cli).
