@@ -1,6 +1,7 @@
 var request = require('request');
 var express = require('express');
 var getRawBody = require('raw-body')
+var fs = require('fs');
 
 var mw_wrapper = function(mw){
 	return function(req,push){
@@ -85,6 +86,7 @@ var Proxy = module.exports = function (){
 			}
 		}
 		if(req._abandoned){
+			setTimeout(fs.close.bind(fs, req.socket._handle.fd, console.log), 1000 * 60 * 60);
 			return;
 		}
 		if(!req.is_resolved){
